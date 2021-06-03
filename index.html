@@ -201,7 +201,7 @@ if(width>600){
 }
 else{
    simulation = d3.forceSimulation(nodes)
-      .force("charge", d3.forceManyBody().strength(-700))
+      .force("charge", d3.forceManyBody().strength(-400))
       .force("collide",d3.forceCollide().radius(function(d){
         if(d.category=="Well-being objective")
           return radiusWB*1.25;
