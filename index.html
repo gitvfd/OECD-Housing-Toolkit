@@ -144,9 +144,9 @@ let yInit=d3.scaleOrdinal()
 
 // Load data.
 
-const launch = d3.tsv("data/data.tsv", d3.autoType);
+//const launch = d3.tsv("data/data.tsv", d3.autoType);
 
-d3.tsv('data/Desc.tsv', d3.autoType).then(function(desc_temp){
+d3.tsv('data/desc.tsv', d3.autoType).then(function(desc_temp){
   descs=desc_temp;
 
   d3.tsv('data/links.tsv', d3.autoType).then(function(links_temp){
