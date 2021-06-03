@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<!--
+	Sources:
+	https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518
+	https://github.com/johnwalley/d3-simple-slider
+	https://flowingdata.com/projects/2021/minimum-wage/?initialWidth=670&childId=minwage&parentTitle=How%20Much%20Minimum%20Wage%20Changed%20in%20Each%20State%20%7C%20FlowingData&parentUrl=https%3A%2F%2Fflowingdata.com%2F2021%2F03%2F01%2Fhow-much-minimum-wage-changed-in-each-state%2F
+
+-->
+<head>
+<meta charset="utf-8">
+<title>Housing Policy Toolkit</title>
+<link rel="stylesheet" href="css/site.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+<script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>  
+	
+</head>
+<div id="main-wrapper">
+
+			<h1>Housing Policy Toolkit</h1>
+	
+	<!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
+    <div id="intro">
+        We have compiled a list of 16 policy priorities to make housing more efficient, more inclusive and more sustainable. These priorities result from the interplay of 4 policy levers (Tax, spending, regulation, urban policy) and the 4 wellbeing-enhancing objectives, namely affordability, mobility, resilience and sustainability. This framework allows to draw on complementarities between objectives but also to address policy trade-offs. 
+    </div>
+    
+    
+    <div id="selectorButtons" class="flex-container">
+				<button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
+				<button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
+				<button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
+				<button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
+				<button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
+
+		</div>
+</div>
+<div id="tool" class="flex-container-viz">
+	<div class="flex-container-viz-item" id="info">
+    <div id="introViz">
+      Grey arcs <span class="box negative"></span> highlight potentially negative trade-offs of the measures on well-being objectives. Green arcs <span class="box positive"></span> highlight positive trade-offs.
+    </div>
+    <br/>
+    
+    <div id="levertitle">
+    </div>
+    <div id="lever">
+    </div>
+    <div class="hr-line"></div>
+    <div id="titleWBobj">
+    </div>
+    <div id="WBobjxLever">
+
+    </div>
+  </div>
+	<div class="flex-container-viz-item" id="chart"></div>
+</div>
+	<!--<div id="source"><b>Source</b>: <a href="https://gitvfd.github.io/OECD-Green-Recovery-Policies/data/OECD_ENV_COVID-recovery-database_final-for-web.xlsm" target="_blank">OECD Green Recovery Database (2021)</a> - Total spending estimated from  <a href="https://recovery.smithschool.ox.ac.uk/tracking/" target="_blank">Global Recovery Observatory</a> data</div>
+
+	<img id="OECDLogo" src="img/OECD_20cm.jpg"></img>-->
+
+</div>
+<script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+<script src="https://d3js.org/d3-fetch.v2.min.js"></script>
+<script src="js/d3.v6.min.js"></script>
+
+<script>
+
+var divCircle = d3.select("body").append("div") 
+	.attr("class", "tooltip")       
+	.style("opacity", 0);
+
+
+
+// Dimensions of chart.
+
+let margin;
+if(parseInt(d3.select('#chart').style('width'), 10)>800)
+  margin = { top: 30, right: 50, bottom: 30, left: 50 };
+else
+  margin = { top: 30, right: 50, bottom: 30, left: 50 };
+
+let width = (parseInt(d3.select('#chart').style('width'), 10) - margin.left - margin.right);
+let height = 550 - margin.top - margin.bottom;
+
+let selector="all";
+let clickSelector= "NONCLICKED";
+let selwb=null;
+
+let radiusWB=30
+let radiusInd=10
+
+let opacity=0.05;
+
+//All Data
+let nodes;
+let links;
+let descs;
+
+let node;
+let link;
+
+let linkedByIndex = {};
+
+
+let simulation= d3.forceSimulation();
+
+// Node spacing.
+const padding = 0; // Space between nodes
+
+//Define svg
+let svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  //.append("g")
+    //.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+let gViz = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+    gViz.append("rect").attr("id","vizbackground").attr("x",0).attr("y",0)
+    .attr("width", width  + margin.right)
+    .attr("height", height  + margin.bottom).attr("fill","#ffffff");
+
+
+let color = d3.scaleOrdinal()
+	.domain(["0","1"])
+	.range(["#586D79","#27B499"])
+
+let color_lever = d3.scaleOrdinal()
+	.domain(["Taxation","Spending","Regulation","Urban planning"])
+	.range(["#00A8CB","#0BB89C","#ED4E70","#FFC20E"])
+
+let xInit=d3.scaleOrdinal()
+	.domain(["Affordability","Mobility","Resilience","Sustaibability"])
+	.range([0.15*width,0.85*width,0.15*width,0.85*width])
+
+let yInit=d3.scaleOrdinal()
+	.domain(["Affordability","Mobility","Resilience","Sustaibability"])
+	.range([0.25*height,0.75*height,0.25*height,0.75*height])
+
+
+
+// Load data.
+
+const launch = d3.tsv("data/data.tsv", d3.autoType);
+
+d3.tsv('data/Desc.tsv', d3.autoType).then(function(desc_temp){
+  descs=desc_temp;
+
+  d3.tsv('data/links.tsv', d3.autoType).then(function(links_temp){
+    links=links_temp;
+     // build a dictionary of nodes that are linked
+    links.forEach(function(d) {
+        linkedByIndex[d.source + "," + d.target] = 1;
+    });
+
+    d3.tsv('data/nodes.tsv', d3.autoType).then(function(nodes_temp){
+      nodes=nodes_temp
+      initiateViz();
+    })
+  })
+})
+
+  
+  
+function initiateViz(){
+  selector="all";
+  selwb=null;
+  clickSelector= "NONCLICKED";
+
+  simulation.stop();
+  d3.selectAll(".linkline").remove();
+  d3.selectAll(".nodecircle").remove();
+
+
+   simulation = d3.forceSimulation(nodes)
+      .force("charge", d3.forceManyBody().strength(-400))
+      .force("collide",d3.forceCollide().radius(function(d){
+        if(d.category=="Well-being objective")
+          return radiusWB*1.25;
+        else
+          return radiusInd*1.25;
+      }).strength(-40))
+     .force('center', d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX().x(function(d) {
+        return xInit(d.id);
+      }))
+      .force("y", d3.forceY().y(function(d) {
+        return yInit(d.id);
+      }))
+      .force("link", d3.forceLink(links).id(d => d.id).distance(width/10));
+
+ 
+
+   link = gViz.append("g")
+      .attr("fill", "none").attr("class","linkline")
+      .selectAll("path")
+      .data(links)
+      .join("path")
+      .attr("stroke-width", function(d){
+          if(d.link==0)
+            return 0.75;
+          else 
+            return 2;
+          })
+        .attr("stroke", d => color(d.link))
+
+   node = gViz.append("g")
+      .attr("fill", "currentColor")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round").attr("class","nodecircle")
+      .selectAll("g")
+      .data(nodes)
+      .join("g")
+      .attr("id",function(d){
+          return "node"+d.id;
+      })
+      .call(drag(simulation));
+
+  circle=node.append("circle")
+      .attr("class",function(d){
+          return "circle"+(d.category).replaceAll(' ','').replaceAll('-','');
+      })
+      .attr("id",function(d){
+          return "circle"+d.id;
+      })
+      .attr("stroke", "#0B1E2D")
+      .attr("stroke-width",  function(d){
+        if(d.category=="Well-being objective")
+          return radiusWB/15;
+        else
+          return radiusInd/15;
+      })
+      .attr("fill",  function(d){
+        if(d.category=="indicator")
+          return color_lever(d.lever);
+        else
+          return "#39617D";
+      })
+      .attr("r", function(d){
+        if(d.category=="Well-being objective")
+          return radiusWB;
+        else
+          return radiusInd;
+      })
+      .on("click",function(d){
+        //if(d.srcElement.__data__.category=="Well-being objective")
+          clickover(d);
+      })
+      .on("mouseover",function(d){
+        mouseover(d);
+      })
+      .on("mouseout",function(d){
+        mouseout(d);
+      })
+
+
+  // add our path definition for the curved textPath to follow
+  circle.append('defs')
+    .append('path')
+    .attr('class',"category_object" )
+    .attr('id', function(n){ return 'new_curvedTextPath_' + n.id})
+    .attr('d', function(n){
+      if(n.type !== 'qualifier'){
+        let radius
+          if(n.category=="Well-being objective")
+              radius= radiusWB;
+          else
+            radius= radiusInd;
+        return new_getPathData(radius,n)
+      }
+    });
+
+
+  node.append('image')
+    .attr('xlink:href', function(d){
+      if(d.category=="Well-being objective")
+          return "img/"+ d.name+".svg";
+    })
+    .attr('width', 1.25*radiusWB)
+    .attr('height', 1.25*radiusWB)
+    .attr("transform","translate(-"+1.25/2*radiusWB+",-"+1.25/2*radiusWB+")")
+    .on("click",function(d){
+      //if(d.srcElement.__data__.category=="Well-being objective")
+        clickover(d);
+    })
+    .on("mouseover",function(d){
+      mouseover(d)
+    })
+    .on("mouseout",function(d){
+      mouseout(d);
+    });
+
+  // add our text with embedded textPath and link the latter to the defined #curvedTextPath
+  node.append('text')
+      .attr('y',-2.5)
+      .append('textPath')
+      .attr('font-size',12)
+      .attr('font-weight',900)
+      .attr('fill','#474747')
+      .attr('startOffset', '50%')
+      .attr('text-anchor','middle')
+      .attr('xlink:href',function(d){ return '#new_curvedTextPath_' + d.id})
+      .text(function(d){
+        if(d.category=="Well-being objective")
+          return d.id;
+      });
+
+
+  simulation.on("tick", () => {
+    link.attr("d", linkArc);
+    node.attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+
+
+  /**** UPDATE TEXT***/
+  var text;
+  descs.forEach(function(k){
+    if(selwb===k.wbObj && selector===k.selector)
+      text=k.desc;
+  })
+
+  document.getElementById("levertitle").innerHTML="";
+  document.getElementById("lever").innerHTML=text;
+  document.getElementById("titleWBobj").innerHTML="";
+  document.getElementById("WBobjxLever").innerHTML="";
+
+}
+
+
+
+function updateViz(value){
+
+  clickSelector= "NONCLICKED";
+  selector=value;
+
+  simulation.stop();
+  d3.selectAll(".linkline").remove();
+  d3.selectAll(".nodecircle").remove();
+
+
+   simulation = d3.forceSimulation(nodes)
+      .force("charge", d3.forceManyBody().strength(-300))
+     .force("collide",d3.forceCollide().radius(1.25*radiusWB).strength(0.1))
+     .force('center', d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX().x(function(d) {
+        return xInit(d.id);
+      }).strength(0.15))
+      .force("y", d3.forceY().y(function(d) {
+        if(d.category=="Well-being objective")
+          return 0.25*height;
+        else
+        return 0.75*height;
+      }).strength(0.8))
+      .force("link", d3.forceLink(links).id(d => d.id).distance(80));
+
+
+
+   link = gViz.append("g")
+      .attr("fill", "none")
+      .attr("class","linkline")
+      .selectAll("path")
+      .data(links.filter(d => d.lever==value))
+      .join("path")
+      .attr("stroke-width", function(d){
+          if(d.link==0)
+            return 0.75;
+          else 
+            return 2;
+          })
+        .attr("stroke", d => color(d.link))
+        //.attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
+
+   node = gViz.append("g")
+      .attr("fill", "currentColor")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("class","nodecircle")
+    .selectAll("g")
+    .data(nodes.filter(d => (d.lever==value || d.category=="Well-being objective" )))
+    .join("g")
+      .attr("id",function(d){
+          return "node"+d.id;
+      })
+      .call(drag(simulation));
+
+  let circle= node.append("circle")
+      .attr("class",function(d){
+          return "circleLevel2"+(d.category).replaceAll(' ','').replaceAll('-','');
+      })
+      .attr("id",function(d){
+          return "circle"+d.id;
+      })
+      .attr("stroke", "#0B1E2D")
+      .attr("stroke-width",  function(d){
+        if(d.category=="Well-being objective")
+          return radiusWB/15;
+        else
+          return radiusInd/15;
+      })
+      .attr("fill",  function(d){
+        if(d.category=="indicator")
+          return color_lever(d.lever);
+        else
+          return "#39617D";
+      })
+      .attr("r", function(d){
+        if(d.category=="Well-being objective")
+          return radiusWB;
+        else
+          return radiusInd;
+      })
+      .on("click",function(d){
+        //if(d.srcElement.__data__.category=="Well-being objective")
+          clickover(d);
+      })
+      .on("mouseover",function(d){
+        mouseover(d)
+      })
+      .on("mouseout",function(d){
+        mouseout(d);
+      });
+
+  // add our path definition for the curved textPath to follow
+  circle.append('defs')
+    .append('path')
+    .attr('class',"category_object" )
+    .attr('id', function(n){ return 'new_curvedTextPath_' + n.id})
+    .attr('d', function(n){
+      if(n.type !== 'qualifier'){
+        let radius
+          if(n.category=="Well-being objective")
+              radius= radiusWB;
+          else
+            radius= radiusInd;
+        return new_getPathData(radius,n)
+      }
+    });
+
+
+  node.append('image')
+    .attr('xlink:href', function(d){
+      if(d.category=="Well-being objective")
+          return "img/"+ d.name+".svg";
+    })
+    .attr('width', 1.25*radiusWB)
+    .attr('height', 1.25*radiusWB)
+    .attr("transform","translate(-"+1.25/2*radiusWB+",-"+1.25/2*radiusWB+")")
+    .on("click",function(d){
+      //if(d.srcElement.__data__.category=="Well-being objective")
+        clickover(d);
+    })
+    .on("mouseover",function(d){
+      mouseover(d)
+    })
+    .on("mouseout",function(d){
+      mouseout(d);
+    });
+
+  // add our text with embedded textPath and link the latter to the defined #curvedTextPath
+  node.append('text')
+      /*.attr("id",function(d){
+          return circle_scale(d.volume)
+      })*/
+      //.attr('class',"category_object" + id)
+      .attr('y',-2.5)
+      .append('textPath')
+      //.attr('class',"category_object" + id)
+      .attr('font-size',12)
+      .attr('font-weight',900)
+      .attr('fill','#474747')
+      .attr('startOffset', '50%')
+      .attr('text-anchor','middle')
+      .attr('xlink:href',function(d){ return '#new_curvedTextPath_' + d.id})
+      .text(function(d){
+        if(d.category=="Well-being objective")
+          return d.id;
+      });
+
+
+  simulation.on("tick", () => {
+    link.attr("d", linkArc);
+    node.attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+
+
+  /**** UPDATE TEXT***/
+  var text;
+  descs.forEach(function(k){
+    if(selwb===k.wbObj && selector===k.selector)
+      text=k.desc;
+  })
+
+  document.getElementById("levertitle").innerHTML=selector;
+  document.getElementById("lever").innerHTML=text;
+  document.getElementById("titleWBobj").innerHTML="";
+  document.getElementById("WBobjxLever").innerHTML="";
+}
+
+function linkArc(d) {
+  const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+  return `
+    M${d.source.x},${d.source.y}
+    A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
+  `;
+}
+
+drag = simulation => {
+  
+  function dragstarted(event, d) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+  
+  function dragended(event, d) {
+    if (!event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+  
+  return d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+}
+
+
+
+function new_getPathData(radius,data) {
+  var r = radius * 1.1;
+  var startX = - r;
+  return 'm' + startX + ',0 ' + 'a' + r + ',' + r + ' 0 0 1 ' + (2*r) + ',0';
+};
+
+ 
+  // check the dictionary to see if nodes are linked
+function isConnected(a, b) {
+    return linkedByIndex[a + "," + b] || linkedByIndex[b + "," + a] || a == b;
+}
+
+  function wrap(text, width) {
+  text.each(function() {
+
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em")
+    while (word = words.pop()) {
+      line.push(word)
+      tspan.text(line.join(" "))
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop()
+        tspan.text(line.join(" "))
+        line = [word]
+        lineNumber++
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", lineNumber+"em").text(word)
+      }
+    }
+  })
+}
+
+
+
+function mouseover(d){
+  if(clickSelector=="NONCLICKED"){
+      
+      node.style("stroke-opacity", 1);
+      node.style("fill-opacity", 1);
+      link.style("stroke-opacity", 1);
+      
+
+
+      node.style("stroke-opacity", function(o) {
+          thisOpacity = isConnected(d.srcElement.__data__.id, o.id) ? 1 : opacity;
+          return thisOpacity;
+      });
+      node.style("fill-opacity", function(o) {
+          thisOpacity = isConnected(d.srcElement.__data__.id, o.id) ? 1 : opacity;
+          return thisOpacity;
+      });
+
+
+      node.attr("class", function(o) {
+          thisClass = isConnected(d.srcElement.__data__.id, o.id) ? "selectedNode" : "";
+          return thisClass;
+      });
+
+      // also style link accordingly
+      link.style("stroke-opacity", function(o) {
+          return o.source.id=== d.srcElement.__data__.id || o.target.id === d.srcElement.__data__.id ? 1 : opacity;
+      });
+
+
+      divCircle.transition()
+        .duration(250)
+        .style("opacity", 1);
+        var htmlText ;
+          htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+
+
+      divCircle.html(htmlText)
+      .style("left", $('#chart').offset().left+ width/2+ "px")
+      .style("top", $('#chart').offset().top  + "px");
+
+  }else{
+    var nodeSelect ="#node"+d.srcElement.__data__.id;
+
+    d3.select(nodeSelect).style("fill-opacity",1).style("stroke-opacity", 1)        
+    divCircle.transition()
+            .duration(250)
+            .style("opacity", 1);
+            var htmlText ;
+    
+    htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+
+
+    divCircle.html(htmlText)
+    .style("left", $('#chart').offset().left+ width/2+ "px")
+    .style("top", $('#chart').offset().top + "px");
+  }
+  
+  
+}
+
+
+function mouseout(d) {
+  if(clickSelector=="NONCLICKED"){
+
+      node.style("stroke-opacity", 1);
+      node.style("fill-opacity", 1);
+      link.style("stroke-opacity", 1);
+      
+      /* d3.select("#chart").selectAll("image")
+        .style("opacity", 1)*/
+      divCircle.transition()
+              .duration(100)
+              .style("opacity", 0);
+  }else{
+
+      divCircle.transition()
+              .duration(100)
+              .style("opacity", 0);
+    
+    var nodeSelect ="#node"+d.srcElement.__data__.id;
+    var nodeSelectNoHash ="node"+d.srcElement.__data__.id;
+
+    if(document.getElementById(nodeSelectNoHash).className.baseVal!="selectedNode")
+      d3.select(nodeSelect).style("fill-opacity",opacity).style("stroke-opacity", opacity)  
+  }
+
+  
+}
+
+function clickover(d){
+  if(clickSelector=="NONCLICKED"){
+        clickSelector="CLICKED"
+        
+        if(d.srcElement.__data__.category=="Well-being objective"){
+          selwb=d.srcElement.__data__.name;
+        //document.getElementById("titleIndic").innerHTML=d.srcElement.__data__.name;
+        }
+        else
+          selwb=null;
+
+
+  }else{
+        clickSelector="CLICKED"
+        /*if(selector=="all")
+          initiateViz()
+        else
+          updateViz(selector)*/
+           
+        if(d.srcElement.__data__.category=="Well-being objective"){
+          selwb=d.srcElement.__data__.name;
+        //document.getElementById("titleIndic").innerHTML=d.srcElement.__data__.name;
+        }
+        else
+          selwb=null;
+  }   
+  
+      node.style("stroke-opacity", function(o) {
+          thisOpacity = isConnected(d.srcElement.__data__.id, o.id) ? 1 : opacity;
+          return thisOpacity;
+      });
+      node.style("fill-opacity", function(o) {
+          thisOpacity = isConnected(d.srcElement.__data__.id, o.id) ? 1 : opacity;
+          return thisOpacity;
+      });
+
+
+      node.attr("class", function(o) {
+          thisClass = isConnected(d.srcElement.__data__.id, o.id) ? "selectedNode" : "";
+          return thisClass;
+      });
+
+      // also style link accordingly
+      link.style("stroke-opacity", function(o) {
+          return o.source.id=== d.srcElement.__data__.id || o.target.id === d.srcElement.__data__.id ? 1 : opacity;
+      });   
+
+
+  /**** UPDATE TEXT***/
+  var text;
+  descs.forEach(function(k){
+    if(selwb===k.wbObj && selector===k.selector)
+      text=k.desc;
+  })
+
+  //document.getElementById("levertitle").innerHTML=selector;
+  //document.getElementById("lever").innerHTML=text;
+  document.getElementById("titleWBobj").innerHTML=d.srcElement.__data__.name;
+  document.getElementById("WBobjxLever").innerHTML=text;
+}
+
+
+d3.select("#vizbackground")
+  .on("click",function(){
+    
+    if(clickSelector=="CLICKED"){
+          clickSelector="NONCLICKED"
+          if(selector=="all")
+            initiateViz()
+          else
+            updateViz(selector)
+    }
+  });
+
+d3.selectAll(".button")
+    .on("click", function () {
+      if(d3.select(this)._groups[0][0].id=="resetButton"){
+
+        d3.selectAll(".button")
+            .style("opacity", 1)
+      }
+      else{
+        d3.selectAll(".button")
+            .style("opacity", 0.25)
+
+        d3.selectAll("#resetButton")
+            .style("opacity", 1)
+        d3.select(this)
+            .style("opacity", 1)
+
+      }
+    })
+
+</script>

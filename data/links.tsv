@@ -1,0 +1,43 @@
+lever	name	target	link	id	source
+Taxation	Phase out tax advantages for home ownership	Affordability	1	1-1-1	indic1
+Taxation	Tax motor fuels	Affordability	0	1-1-3	indic3
+Taxation	Tax property with split rates (higher rate on land than buildings)	Affordability	1	1-1-4	indic4
+Spending	Invest to build green social housing with portable eligibility	Affordability	1	2-1-5	indic5
+Spending	Subsidise the retrofitting of the existing housing stock	Affordability	1	2-1-6	indic6
+Spending	More spending on housing allowances	Affordability	0	2-1-7	indic7
+Regulation	Tighten loan-to-value caps	Affordability	0	3-1-8	indic8
+Regulation	Increase capital requirements for mortages	Affordability	0	3-1-9	indic9
+Regulation	Relax rent-control	Affordability	0	3-1-10	indic10
+Regulation	Relax landlord-tenant regulation	Affordability	0	3-1-11	indic11
+Regulation	Require certain energy performance through building codes	Affordability	0	3-1-12	indic12
+Urban planning	Regularly re-evaluate geographic boundaries on urban development	Affordability	1	4-1-14	indic14
+Urban planning	Relax building height regulations	Affordability	1	4-1-15	indic15
+Urban planning	Allow the owners of development rights in environmentally valuable areas to transfer them	Affordability	1	4-1-16	indic16
+Urban planning	Acquire land to prevent its development	Affordability	0	4-1-17	indic17
+Urban planning	Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	Affordability	1	4-1-18	indic18
+Urban planning	Restrict vehicle access to city centres	Affordability	0	4-1-19	indic19
+Urban planning	Price urban roads and/or car parks	Affordability	0	4-1-20	indic20
+Taxation	Shift housing taxes from transation towards annual levies	Mobility	1	1-2-2	indic2
+Spending	Invest to build green social housing with portable eligibility	Mobility	1	2-2-5	indic5
+Spending	More spending on housing allowances	Mobility	1	2-2-7	indic7
+Regulation	Relax rent-control	Mobility	1	3-2-10	indic10
+Regulation	Relax landlord-tenant regulation	Mobility	1	3-2-11	indic11
+Taxation	Phase out tax advantages for home ownership	Resilience	1	1-3-1	indic1
+Spending	Invest to build green social housing with portable eligibility	Resilience	1	2-3-5	indic5
+Regulation	Tighten loan-to-value caps	Resilience	1	3-3-8	indic8
+Regulation	Increase capital requirements for mortages	Resilience	1	3-3-9	indic9
+Regulation	Relax rent-control	Resilience	1	3-3-10	indic10
+Regulation	Relax landlord-tenant regulation	Resilience	1	3-3-11	indic11
+Taxation	Tax motor fuels	Sustainability	1	1-4-3	indic3
+Taxation	Tax property with split rates (higher rate on land than buildings)	Sustainability	1	1-4-4	indic4
+Spending	Invest to build green social housing with portable eligibility	Sustainability	1	2-4-5	indic5
+Spending	Subsidise the retrofitting of the existing housing stock	Sustainability	1	2-4-6	indic6
+Regulation	Require certain energy performance through building codes	Sustainability	1	3-4-12	indic12
+Regulation	Benchmark the energy performance of buildings	Sustainability	1	3-4-13	indic13
+Urban planning	Relax building height regulations	Sustainability	0	4-4-15	indic15
+Urban planning	Allow the owners of development rights in environmentally valuable areas to transfer them	Sustainability	1	4-4-16	indic16
+Urban planning	Acquire land to prevent its development	Sustainability	1	4-4-17	indic17
+Urban planning	Restrict vehicle access to city centres	Sustainability	1	4-4-19	indic19
+Urban planning	Price urban roads and/or car parks	Sustainability	1	4-4-20	indic20
+Urban planning	Develop public transport	Sustainability	1	4-4-21	indic21
+Urban planning	Develop alternative fuel infrastructure	Sustainability	1	4-4-22	indic22

@@ -1,0 +1,27 @@
+name	category	lever	id
+Affordability	Well-being objective		Affordability
+Mobility	Well-being objective		Mobility
+Resilience	Well-being objective		Resilience
+Sustainability	Well-being objective		Sustainability
+Phase out tax advantages for home ownership	indicator	Taxation	indic1
+Shift housing taxes from transation towards annual levies	indicator	Taxation	indic2
+Tax motor fuels	indicator	Taxation	indic3
+Tax property with split rates (higher rate on land than buildings)	indicator	Taxation	indic4
+Invest to build green social housing with portable eligibility	indicator	Spending	indic5
+Subsidise the retrofitting of the existing housing stock	indicator	Spending	indic6
+More spending on housing allowances	indicator	Spending	indic7
+Tighten loan-to-value caps	indicator	Regulation	indic8
+Increase capital requirements for mortages	indicator	Regulation	indic9
+Relax rent-control	indicator	Regulation	indic10
+Relax landlord-tenant regulation	indicator	Regulation	indic11
+Require certain energy performance through building codes	indicator	Regulation	indic12
+Benchmark the energy performance of buildings	indicator	Regulation	indic13
+Regularly re-evaluate geographic boundaries on urban development	indicator	Urban planning	indic14
+Relax building height regulations	indicator	Urban planning	indic15
+Allow the owners of development rights in environmentally valuable areas to transfer them	indicator	Urban planning	indic16
+Acquire land to prevent its development	indicator	Urban planning	indic17
+Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	indicator	Urban planning	indic18
+Restrict vehicle access to city centres	indicator	Urban planning	indic19
+Price urban roads and/or car parks	indicator	Urban planning	indic20
+Develop public transport	indicator	Urban planning	indic21
+Develop alternative fuel infrastructure	indicator	Urban planning	indic22

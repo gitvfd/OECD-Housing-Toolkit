@@ -1,0 +1,14 @@
+{
+  "name": "@brunolaranjeira/d3-v6-force-directed-graph-with-directional-straight-arrow",
+  "main": "c019e733534da627@316.js",
+  "version": "316.0.0",
+  "homepage": "https://observablehq.com/@brunolaranjeira/d3-v6-force-directed-graph-with-directional-straight-arrow",
+  "author": {
+    "name": "Bruno Laranjeira",
+    "url": "https://observablehq.com/@brunolaranjeira"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}

@@ -1,0 +1,89 @@
+reduced_lever	lever	indicator	Wellbeing-obj	link
+Taxation	Taxation	Phase out tax advantages for home ownership	Affordability	1
+Taxation	Taxation	Shift housing taxes from transation towards annual levies	Affordability	
+Taxation	Taxation	Tax motor fuels	Affordability	0
+Taxation	Taxation	Tax property with split rates (higher rate on land than buildings)	Affordability	1
+Spending	Spending	Invest to build green social housing with portable eligibility	Affordability	1
+Spending	Spending	Subsidise the retrofitting of the existing housing stock	Affordability	1
+Spending	Spending	More spending on housing allowances	Affordability	0
+Regulation	Financial policy	Tighten loan-to-value caps	Affordability	0
+Regulation	Financial policy	Increase capital requirements for mortages	Affordability	0
+Regulation	Rent regulation	Relax rent-control	Affordability	0
+Regulation	Rent regulation	Relax landlord-tenant regulation	Affordability	0
+Regulation	Building regulation	Require certain energy performance through building codes	Affordability	0
+Regulation	Building regulation	Benchmark the energy performance of buildings	Affordability	
+Urban planning	Land use	Regularly re-evaluate geographic boundaries on urban development	Affordability	1
+Urban planning	Land use	Relax building height regulations	Affordability	1
+Urban planning	Land use	Allow the owners of development rights in environmentally valuable areas to transfer them	Affordability	1
+Urban planning	Land use	Acquire land to prevent its development	Affordability	0
+Urban planning	Land use	Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	Affordability	1
+Urban planning	Environment urban policy	Restrict vehicle access to city centres	Affordability	0
+Urban planning	Environment urban policy	Price urban roads and/or car parks	Affordability	0
+Urban planning	Environment urban policy	Develop public transport	Affordability	
+Urban planning	Environment urban policy	Develop alternative fuel infrastructure	Affordability	
+Taxation	Taxation	Phase out tax advantages for home ownership	Mobility	
+Taxation	Taxation	Shift housing taxes from transation towards annual levies	Mobility	1
+Taxation	Taxation	Tax motor fuels	Mobility	
+Taxation	Taxation	Tax property with split rates (higher rate on land than buildings)	Mobility	
+Spending	Spending	Invest to build green social housing with portable eligibility	Mobility	1
+Spending	Spending	Subsidise the retrofitting of the existing housing stock	Mobility	
+Spending	Spending	More spending on housing allowances	Mobility	1
+Regulation	Financial policy	Tighten loan-to-value caps	Mobility	
+Regulation	Financial policy	Increase capital requirements for mortages	Mobility	
+Regulation	Rent regulation	Relax rent-control	Mobility	1
+Regulation	Rent regulation	Relax landlord-tenant regulation	Mobility	1
+Regulation	Building regulation	Require certain energy performance through building codes	Mobility	
+Regulation	Building regulation	Benchmark the energy performance of buildings	Mobility	
+Urban planning	Land use	Regularly re-evaluate geographic boundaries on urban development	Mobility	
+Urban planning	Land use	Relax building height regulations	Mobility	
+Urban planning	Land use	Allow the owners of development rights in environmentally valuable areas to transfer them	Mobility	
+Urban planning	Land use	Acquire land to prevent its development	Mobility	
+Urban planning	Land use	Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	Mobility	
+Urban planning	Environment urban policy	Restrict vehicle access to city centres	Mobility	
+Urban planning	Environment urban policy	Price urban roads and/or car parks	Mobility	
+Urban planning	Environment urban policy	Develop public transport	Mobility	
+Urban planning	Environment urban policy	Develop alternative fuel infrastructure	Mobility	
+Taxation	Taxation	Phase out tax advantages for home ownership	Resilience	1
+Taxation	Taxation	Shift housing taxes from transation towards annual levies	Resilience	
+Taxation	Taxation	Tax motor fuels	Resilience	
+Taxation	Taxation	Tax property with split rates (higher rate on land than buildings)	Resilience	
+Spending	Spending	Invest to build green social housing with portable eligibility	Resilience	1
+Spending	Spending	Subsidise the retrofitting of the existing housing stock	Resilience	
+Spending	Spending	More spending on housing allowances	Resilience	
+Regulation	Financial policy	Tighten loan-to-value caps	Resilience	1
+Regulation	Financial policy	Increase capital requirements for mortages	Resilience	1
+Regulation	Rent regulation	Relax rent-control	Resilience	1
+Regulation	Rent regulation	Relax landlord-tenant regulation	Resilience	1
+Regulation	Building regulation	Require certain energy performance through building codes	Resilience	
+Regulation	Building regulation	Benchmark the energy performance of buildings	Resilience	
+Urban planning	Land use	Regularly re-evaluate geographic boundaries on urban development	Resilience	
+Urban planning	Land use	Relax building height regulations	Resilience	
+Urban planning	Land use	Allow the owners of development rights in environmentally valuable areas to transfer them	Resilience	
+Urban planning	Land use	Acquire land to prevent its development	Resilience	
+Urban planning	Land use	Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	Resilience	
+Urban planning	Environment urban policy	Restrict vehicle access to city centres	Resilience	
+Urban planning	Environment urban policy	Price urban roads and/or car parks	Resilience	
+Urban planning	Environment urban policy	Develop public transport	Resilience	
+Urban planning	Environment urban policy	Develop alternative fuel infrastructure	Resilience	
+Taxation	Taxation	Phase out tax advantages for home ownership	Sustaibability	
+Taxation	Taxation	Shift housing taxes from transation towards annual levies	Sustaibability	
+Taxation	Taxation	Tax motor fuels	Sustaibability	1
+Taxation	Taxation	Tax property with split rates (higher rate on land than buildings)	Sustaibability	1
+Spending	Spending	Invest to build green social housing with portable eligibility	Sustaibability	1
+Spending	Spending	Subsidise the retrofitting of the existing housing stock	Sustaibability	1
+Spending	Spending	More spending on housing allowances	Sustaibability	
+Regulation	Financial policy	Tighten loan-to-value caps	Sustaibability	
+Regulation	Financial policy	Increase capital requirements for mortages	Sustaibability	
+Regulation	Rent regulation	Relax rent-control	Sustaibability	
+Regulation	Rent regulation	Relax landlord-tenant regulation	Sustaibability	
+Regulation	Building regulation	Require certain energy performance through building codes	Sustaibability	1
+Regulation	Building regulation	Benchmark the energy performance of buildings	Sustaibability	1
+Urban planning	Land use	Regularly re-evaluate geographic boundaries on urban development	Sustaibability	
+Urban planning	Land use	Relax building height regulations	Sustaibability	0
+Urban planning	Land use	Allow the owners of development rights in environmentally valuable areas to transfer them	Sustaibability	1
+Urban planning	Land use	Acquire land to prevent its development	Sustaibability	1
+Urban planning	Land use	Reform land-use governance to give more authority to the metroppolitan rather than lower levels and avoid overlaps	Sustaibability	
+Urban planning	Environment urban policy	Restrict vehicle access to city centres	Sustaibability	1
+Urban planning	Environment urban policy	Price urban roads and/or car parks	Sustaibability	1
+Urban planning	Environment urban policy	Develop public transport	Sustaibability	1
+Urban planning	Environment urban policy	Develop alternative fuel infrastructure	Sustaibability	1
