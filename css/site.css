@@ -2,6 +2,8 @@ body{
   background:#ffffff;
   font-family: 'Noto Sans', sans-serif;
   fill:#575757;
+  max-width:1600px;
+  margin:auto;
 }
 
 #heading{
@@ -277,7 +279,7 @@ div.tooltip {
 }
 
 /* Large screens */
-@media not(screen) and (min-width: 940px) {
+@media only screen and (min-width: 940px) {
   /* We invert order of first sidebar and main
    * And tell the main element to take twice as much width as the other two sidebars 
    */
