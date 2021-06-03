@@ -212,9 +212,9 @@ else{
       .force("x", d3.forceX().x(function(d) {
         return xInit(d.id);
       }).strength(200/width))
-      .force("y", d3.forceY(0.5).y(function(d) {
+      .force("y", d3.forceY(height/2).y(function(d) {
         return yInit(d.id);
-      }).strength(-100/width))
+      }).strength(100/width))
       .force("link", d3.forceLink(links).id(d => d.id).distance(width/75));
 }
 
