@@ -277,7 +277,7 @@ div.tooltip {
 }
 
 /* Large screens */
-@media all and (min-width: 940px) {
+@media not(screen) and (min-width: 940px) {
   /* We invert order of first sidebar and main
    * And tell the main element to take twice as much width as the other two sidebars 
    */
