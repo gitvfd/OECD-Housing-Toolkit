@@ -22,9 +22,11 @@
 	
 	<!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
     <div id="intro">
-        The OECD has compiled 16 policy priorities to make housing more efficient, more inclusive and more sustainable. These priorities result from the interplay of 4 policy levers - Tax, spending, regulation, urban policy - and  4 wellbeing-enhancing objectives - affordability, mobility, resilience and sustainability -. This framework allows to draw on complementarities between objectives but also to address policy trade-offs. 
-      <br/><br/>
-      Browse it all by mousing over and clicking on the measures and well-being objectives or focus on one of the policy lever. 
+        The OECD has assembled 16 policy actions to make housing more efficient, more inclusive and more sustainable.
+      <br />
+      There are 4 types of policy action: 1. Tax; 2. Spending; 3. Regulation; Urban policy. There are 4 well-being objectives: 1. Affordability; 2. Mobility; Resilience; 4. Sustainability. This tool allows the user to reflect on complementarities between the objectives as well as policy trade-offs.
+      <br /><br/>
+      Mouse over and click on the actions and well-being objectives or focus on one policy action.
       </div>
     
     
@@ -40,7 +42,7 @@
 <div id="tool" class="flex-container-viz">
 	<div class="flex-container-viz-item" id="info">
     <div id="introViz">
-      Grey arcs <span class="box negative"></span> highlight potentially negative trade-offs of the measures on well-being objectives. Green arcs <span class="box positive"></span> highlight complementarities.
+      The red arcs <span class="box negative"></span> highlight potentially negative trade-offs of the chosen policy action on the well-being objectives. The green arcs <span class="box positive"></span> highlight complementarities between policy actions.
     </div>
     <br/>
     
@@ -127,7 +129,7 @@ let gViz = svg.append("g")
 
 let color = d3.scaleOrdinal()
 	.domain(["0","1"])
-	.range(["#586D79","#27B499"])
+	.range(["#c12b4f","#27B499"])
 
 let color_lever = d3.scaleOrdinal()
 	.domain(["Taxation","Spending","Regulation","Urban planning"])
