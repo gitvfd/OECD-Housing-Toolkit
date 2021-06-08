@@ -16,49 +16,50 @@
 <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>  
 	
 </head>
-<div id="main-wrapper">
+<div id="app">
+  <div id="main-wrapper">
+  <!--
+        <h1>Housing Policy Action Tool</h1>
+  -->
+    <!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
+      <div id="intro">
+          The OECD has assembled 16 policy actions to make housing more efficient, more inclusive and more sustainable.
+        <br />
+        There are 4 types of policy action: 1. Tax; 2. Spending; 3. Regulation; Urban policy. There are 4 well-being objectives: 1. Affordability; 2. Mobility; Resilience; 4. Sustainability. This tool allows the user to reflect on complementarities between the objectives as well as policy trade-offs.
+        <br /><br/>
+        Mouse over and click on the actions and well-being objectives or focus on one policy action.
+        </div>
+      
+      
+      <div id="selectorButtons" class="flex-container">
+          <button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
+          <button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
+          <button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
+          <button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
+          <button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
 
-			<h1>Housing Policy Action Tool</h1>
-	
-	<!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
-    <div id="intro">
-        The OECD has assembled 16 policy actions to make housing more efficient, more inclusive and more sustainable.
-      <br />
-      There are 4 types of policy action: 1. Tax; 2. Spending; 3. Regulation; Urban policy. There are 4 well-being objectives: 1. Affordability; 2. Mobility; Resilience; 4. Sustainability. This tool allows the user to reflect on complementarities between the objectives as well as policy trade-offs.
-      <br /><br/>
-      Mouse over and click on the actions and well-being objectives or focus on one policy action.
       </div>
-    
-    
-    <div id="selectorButtons" class="flex-container">
-				<button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
-				<button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
-				<button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
-				<button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
-				<button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
-
-		</div>
-</div>
-<div id="tool" class="flex-container-viz">
-	<div class="flex-container-viz-item" id="info">
-    <div id="introViz">
-      The red arcs <span class="box negative"></span> highlight potentially negative trade-offs of the chosen policy action on the well-being objectives. The green arcs <span class="box positive"></span> highlight complementarities between policy actions.
-    </div>
-    <br/>
-    
-    <div id="levertitle">
-    </div>
-    <div id="lever">
-    </div>
-    <div class="hr-line"></div>
-    <div id="titleWBobj">
-    </div>
-    <div id="WBobjxLever">
-
-    </div>
   </div>
-	<div class="flex-container-viz-item" id="chart"></div>
-</div>
+  <div id="tool" class="flex-container-viz">
+    <div class="flex-container-viz-item" id="info">
+      <div id="introViz">
+        The red arcs <span class="box negative"></span> highlight potentially negative trade-offs of the chosen policy action on the well-being objectives. The green arcs <span class="box positive"></span> highlight complementarities between policy actions.
+      </div>
+      <br/>
+      
+      <div id="levertitle">
+      </div>
+      <div id="lever">
+      </div>
+      <div class="hr-line"></div>
+      <div id="titleWBobj">
+      </div>
+      <div id="WBobjxLever">
+
+      </div>
+    </div>
+    <div class="flex-container-viz-item" id="chart"></div>
+  </div>
 	<!--<div id="source"><b>Source</b>: <a href="https://gitvfd.github.io/OECD-Green-Recovery-Policies/data/OECD_ENV_COVID-recovery-database_final-for-web.xlsm" target="_blank">OECD Green Recovery Database (2021)</a> - Total spending estimated from  <a href="https://recovery.smithschool.ox.ac.uk/tracking/" target="_blank">Global Recovery Observatory</a> data</div>
 
 	<img id="OECDLogo" src="img/OECD_20cm.jpg"></img>-->
