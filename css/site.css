@@ -33,8 +33,8 @@ h1 {
   font-size: 1.75rem;
   font-weight: 700;
   color: #04629a;
-  margin: 0px;
-  padding-left: 5%;
+
+  margin-left: 1%;
   /*padding-left: 5%;*/
   padding-top: 14px;
   padding-bottom: 0px;
@@ -58,12 +58,14 @@ h2 {
   font-size: 1.1em;
   font-weight: 300;
   color: #575757;
-  margin-left: 5%;
+  margin-left: 1%;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-
+#tool {
+  margin-left: 1%;
+}
 
 .flex-container {
   position: relative;
@@ -78,7 +80,7 @@ h2 {
 .flex-container>div {
   align-content: space-between;
   width: 40%;
-  margin: 0% 5%;
+  margin: 0% 0%;
   text-align: left;
 }
 
@@ -326,13 +328,22 @@ div.tooltip {
   cursor: not-allowed;
 }
 
-#introViz,
+
 #intro {
   font-family: "Noto Sans Display", sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   color: #575757;
-  margin-left: 5%;
+  margin-left: 1%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#introViz{
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  color: #575757;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -342,7 +353,7 @@ div.tooltip {
   font-size: 1.1em;
   font-weight: 700;
   color: #575757;
-  margin-left: 5%;
+  
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -352,7 +363,7 @@ div.tooltip {
   font-size: 1.1em;
   font-weight: 300;
   color: #575757;
-  margin-left: 5%;
+  
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -371,7 +382,7 @@ div.hr-line {
   font-size: 1.1em;
   font-weight: 700;
   color: #575757;
-  margin-left: 5%;
+ 
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -381,7 +392,7 @@ div.hr-line {
   font-size: 1.1em;
   font-weight: 300;
   color: #575757;
-  margin-left: 5%;
+
   margin-top: 10px;
   margin-bottom: 10px;
 }
