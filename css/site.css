@@ -339,7 +339,7 @@ div.tooltip {
   margin-bottom: 10px;
 }
 
-#introViz{
+#introViz {
   font-family: "Noto Sans Display", sans-serif;
   font-size: 1.1em;
   font-weight: 300;
@@ -353,7 +353,7 @@ div.tooltip {
   font-size: 1.1em;
   font-weight: 700;
   color: #575757;
-  
+
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -363,7 +363,7 @@ div.tooltip {
   font-size: 1.1em;
   font-weight: 300;
   color: #575757;
-  
+
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -382,7 +382,7 @@ div.hr-line {
   font-size: 1.1em;
   font-weight: 700;
   color: #575757;
- 
+
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -414,6 +414,16 @@ div.hr-line {
 .negative {
   border: solid 2px #c12b4f;
   border-color: #c12b4f transparent transparent transparent;
+}
+
+.positivehighlight {
+  color: #27B499;
+  font-weight: 900;
+}
+
+.negativehighlight { 
+  color: #c12b4f;
+  font-weight: 900;
 }
 
 #narrative {
