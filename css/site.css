@@ -271,6 +271,71 @@ div.tooltip {
   z-index: 15;
 }
 
+ span.circle {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        color: #ffffff;
+        display: inline-block;
+        font-weight: bold;
+        line-height: 20px;
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+        width: 20px;
+  border: solid #0B1E2D;
+  border-width: 1px;
+  font-size:12px;
+      }
+
+
+ span.circleObj {
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        color: #ffffff;
+        display: inline-block;
+        font-weight: bold;
+        line-height: 30px;
+        margin-right: 5px;
+        margin-left: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+        width: 30px;
+  border: solid #0B1E2D;
+  border-width: 2px;
+  font-size:12px;
+   background: #39617D;
+      }
+
+      .imgIcon{
+width:25px;
+height:20px;
+transform:translate(0%,25%);
+      }
+
+#taxationCircle {
+
+  background: #00A8CB;
+}
+
+#regulationCircle {
+
+  background: #ED4E70;
+}
+
+#spendingCircle {
+
+  background: #0BB89C;
+}
+
+#urbanPlanningCircle {
+
+  background: #FFC20E;
+}
 
 
 #intro {
@@ -285,8 +350,8 @@ div.tooltip {
 
 #conceptInfo{
   position: absolute;
-  top: 1%;
-  left: 2%;
+  top: 10%;
+  left: 0.5%;
   visibility: hidden;
   background:rgba(255,255,255,0.9);
   box-shadow: 0 3px 5px rgba(97, 97, 97, 0.3); 

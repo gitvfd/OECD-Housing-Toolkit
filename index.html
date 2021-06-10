@@ -23,26 +23,23 @@
   -->
     <!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
       <div id="intro">
-          <b>The OECD has assembled 22 policy actions to make housing more efficient, more inclusive and more sustainable.</b> This tool helps you find complementarities between well-being objectives and potential trade-offs between policies.
+          <b>The OECD has assembled 22 policy actions to make housing more efficient, more inclusive and more sustainable.</b> 
         <br /><br/>
-        <b>Policy Actions</b>:
-       
+        They are divided between 4 policy levers:
 
-      
             <div id="selectorButtons" class="flex-container">
-                <button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
                 <button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
+                <button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
                 <button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
                 <button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
                 <button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
-
             </div>
          <!-- <br/>
           <li><b>Policy objectives</b>: 1. Efficiency; 2. Inclusiveness; 3. Sustainability; </li>-->
-
-        The red arcs <span class="box negative"></span> highlight <span class="negativehighlight">potential negative trade-offs</span> of the chosen policy action on the well-being objectives.
-        <br/>
-        The green arcs <span class="box positive"></span> highlight <span class="positivehighlight">complementarities</span> between policy actions.
+         
+          This tool helps you to identify housing policy-related complementarities and trade-offs between various policy objectives. 
+          <br/><br/>
+        Green arcs <span class="box positive"></span> indicate <span class="positivehighlight">positive</span> effects of the policy actions <span class="circle" id="spendingCircle">&nbsp;</span><span class="circle" id="taxationCircle">&nbsp;</span><span class="circle" id="regulationCircle">&nbsp;</span><span class="circle" id="urbanPlanningCircle">&nbsp;</span> on the objectives <span class="circleObj" id="efficiencyCircle"><img src="img/Efficiency.svg"/ class="imgIcon"></span><span class="circleObj" id="inclusivenessCircle"><img src="img/Inclusiveness.svg"/ class="imgIcon"></span><span class="circleObj" id="sustainabilityCircle"><img src="img/Sustainability.svg"/ class="imgIcon"></span>, while red arcs <span class="box negative"></span> indicate <span class="negativehighlight">negative</span> effects. Dashed arcs indicate both <span class="negativehighlight">negative</span> and <span class="positivehighlight">positive</span> effects.
         
         <!--<br /><br/>
         Mouse over and click on the actions and well-being objectives or focus on one policy action.-->
@@ -102,8 +99,17 @@ let selector="all";
 let clickSelector= "NONCLICKED";
 let selwb=null;
 
-let radiusWB=40
-let radiusInd=10
+
+let radiusWB;
+let radiusInd;
+
+if(width>600){
+  radiusWB=40;
+  radiusInd=12.5;
+}else{
+  radiusWB=20;
+  radiusInd=10;
+}
 
 let opacity=0.05;
 
@@ -155,6 +161,10 @@ let yInit=d3.scaleOrdinal()
 	.range([0.25*height,0.75*height,0.25*height,0.75*height])
 
 
+      let defslink = svg.append("defs");
+      let gradient1 = defslink.append("linearGradient").attr("id", "gradient1");
+      gradient1.append("stop").attr("offset", "0%").attr("stop-color", "#c12b4f");
+      gradient1.append("stop").attr("offset", "100%").attr("stop-color", "#27B499");
 
 // Load data.
 
@@ -210,7 +220,7 @@ if(width>600){
       .force("y", d3.forceY().y(function(d) {
         return yInit(d.id);
       }))
-      .force("link", d3.forceLink(links).id(d => d.id).distance(width/10));
+      .force("link", d3.forceLink(links).id(d => d.id).distance(width/5));
 }
 else{
    simulation = d3.forceSimulation(nodes)
@@ -239,15 +249,33 @@ else{
       .selectAll("path")
       .data(links)
       .join("path")
+      .style("stroke-dasharray",  function(d){
+        
+          if(d.link==0 || d.link==1){
+          return (0,0);
+          }else{
+          return (3,3);
+          }
+        }) 
       .attr("stroke-width", function(d){
           if(d.link==0)
             return 0.75;
           else if(d.link==1)
-            return 1;
-          else
             return 1.5;
+          else
+            return 1;
           })
-        .attr("stroke", d => color(d.link))
+         .style("stroke",function(d){
+           if(d.link==0 || d.link==1){
+           return color(d.link)
+           }else{
+             var id = "S"+d.source.index +"T" + d.target.index;
+          var gradient1 = defslink.append("linearGradient").attr("id",  id);
+          gradient1.append("stop").attr("offset", "0%").attr("stop-color", "#c12b4f");
+          gradient1.append("stop").attr("offset", "100%").attr("stop-color", "#27B499");
+          return "url(#" + id + ")";
+           }         
+      });
 
    node = gViz.append("g")
       .attr("fill", "currentColor")
@@ -430,7 +458,7 @@ function updateViz(value){
         else
         return 0.75*height;
       }).strength(0.8))
-      .force("link", d3.forceLink(links).id(d => d.id).distance(80));
+      .force("link", d3.forceLink(links).id(d => d.id).distance(100));
 
 
 
@@ -448,8 +476,25 @@ function updateViz(value){
           else
             return 1;
           })
-        .attr("stroke", d => color(d.link))
-        //.attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
+        .style("stroke-dasharray",  function(d){
+         
+           if(d.link==0 || d.link==1){
+            return (0,0);
+           }else{
+            return (3,3);
+           }
+          }) 
+         .style("stroke",function(d){
+           if(d.link==0 || d.link==1){
+           return color(d.link)
+           }else{
+             var id = "S"+d.source.index +"T" + d.target.index;
+          var gradient1 = defslink.append("linearGradient").attr("id",  id);
+          gradient1.append("stop").attr("offset", "0%").attr("stop-color", "#c12b4f");
+          gradient1.append("stop").attr("offset", "100%").attr("stop-color", "#27B499");
+          return "url(#" + id + ")";
+           }         
+      });
 
    node = gViz.append("g")
       .attr("fill", "currentColor")
@@ -665,7 +710,6 @@ function isConnected(a, b) {
 }
 
 
-
 function mouseover(d){
   
   if(clickSelector=="NONCLICKED"){
@@ -701,6 +745,9 @@ function mouseover(d){
         .duration(250)
         .style("opacity", 1);
         var htmlText ;
+        if(d.srcElement.__data__.definition!=null)
+          htmlText = "<b>"+d.srcElement.__data__.name + "</b><br/>"+d.srcElement.__data__.definition;
+        else
           htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
 
     if(event.pageX>width/2){
@@ -730,7 +777,10 @@ function mouseover(d){
             .style("opacity", 1);
             var htmlText ;
     
-    htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+        if(d.srcElement.__data__.definition!=null)
+          htmlText = "<b>"+d.srcElement.__data__.name + "</b><br/>"+d.srcElement.__data__.definition;
+        else
+          htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
     if(event.pageX>width/2){
           divCircle.html(htmlText)
             //.style("left", $('#chart').offset().left+ width/2+ "px")
