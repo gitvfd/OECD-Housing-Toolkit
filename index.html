@@ -40,7 +40,7 @@
          
           This tool helps you to identify housing policy-related complementarities and trade-offs between various policy objectives. 
           <br/><br/>
-        Green arcs <span class="box positive"></span> indicate <span class="positivehighlight">positive</span> effects of the policy actions <span class="circle" id="spendingCircle">&nbsp;</span><span class="circle" id="taxationCircle">&nbsp;</span><span class="circle" id="regulationCircle">&nbsp;</span><span class="circle" id="urbanPlanningCircle">&nbsp;</span> on the objectives <span class="circleObj" id="efficiencyCircle"><img src="img/Efficiency.svg"/ class="imgIcon"></span><span class="circleObj" id="inclusivenessCircle"><img src="img/Inclusiveness.svg"/ class="imgIcon"></span><span class="circleObj" id="sustainabilityCircle"><img src="img/Sustainability.svg"/ class="imgIcon"></span>, while red arcs <span class="box negative"></span> indicate <span class="negativehighlight">negative</span> effects. Dashed arcs indicate both <span class="negativehighlight">negative</span> and <span class="positivehighlight">positive</span> effects.
+        Predominantly green arcs <span class="box positive"></span> indicate <span class="positivehighlight">positive</span> effects of the policy actions <span class="circle" id="spendingCircle">&nbsp;</span><span class="circle" id="taxationCircle">&nbsp;</span><span class="circle" id="regulationCircle">&nbsp;</span><span class="circle" id="urbanPlanningCircle">&nbsp;</span> on the objectives <span class="circleObj" id="efficiencyCircle"><img src="img/Efficiency.svg"/ class="imgIcon"></span><span class="circleObj" id="inclusivenessCircle"><img src="img/Inclusiveness.svg"/ class="imgIcon"></span><span class="circleObj" id="sustainabilityCircle"><img src="img/Sustainability.svg"/ class="imgIcon"></span>, while predominantly red arcs <span class="box negative"></span> indicate <span class="negativehighlight">negative</span> effects. Dashed arcs <span class="boxDashed"></span> indicate both <span class="negativehighlight">negative</span> and <span class="positivehighlight">positive</span> effects.
         
         <!--<br /><br/>
         Mouse over and click on the actions and well-being objectives or focus on one policy action.-->
@@ -400,7 +400,7 @@ else{
           if(d.link==0 || d.link==1){
           return (0,0);
           }else{
-          return (3,3);
+          return (12,4);
           }
         }) 
       .attr("stroke-width", function(d){
@@ -627,7 +627,7 @@ function updateViz(value){
            if(d.link==0 || d.link==1){
             return (0,0);
            }else{
-            return (3,3);
+            return (12,4);
            }
           }) 
          .style("stroke",function(d){

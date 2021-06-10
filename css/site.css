@@ -501,6 +501,22 @@ div.hr-line {
   border-color: #c12b4f transparent transparent transparent;
 }
 
+.boxDashed {
+  display: inline-block;
+  width: 25px;
+  height: 5px;
+  border: dashed 1px #A7A7A7;
+  border-color: #A7A7A7 transparent transparent transparent;
+  border-radius: 50%/5px 5px 0 0;
+}
+
+
+.mixed{  
+  border: dashed 1px ;
+  border-image:linear-gradient(45deg,#c12b4f,#27B499) transparent transparent transparent;;
+  
+}
+
 .positivehighlight {
   color: #27B499;
   font-weight: 900;
