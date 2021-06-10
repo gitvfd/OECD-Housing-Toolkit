@@ -7,8 +7,9 @@
 
 -->
 <head>
-<meta charset="utf-8">
-<meta id="viewport" name="viewport" content ="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width">
 <title>Housing Policy Action Tool</title>
 <link rel="stylesheet" href="css/site.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/bootstrap.min.css.map">
@@ -23,9 +24,9 @@
   -->
     <!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
       <div id="intro">
-          <b>The OECD has assembled 22 policy actions to make housing more efficient, more inclusive and more sustainable.</b> 
+          <b>The OECD has assembled <span id="highlightActions" class="underline">22 actions</span> to make housing more efficient, more inclusive and more sustainable.</b> 
         <br /><br/>
-        They are divided between 4 policy levers:
+        They are divided into 4 policy fields:
 
             <div id="selectorButtons" class="flex-container">
                 <button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
@@ -72,6 +73,152 @@
 	<img id="OECDLogo" src="img/OECD_20cm.jpg"></img>-->
 
 </div>
+<div id="actionList">
+  <table  id="actionListTable" accellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td >
+          <span class="actionListCat" id="TaxationTitle">Taxation</span>
+        </td>
+        <td >
+          <span class="actionListCat"  id="SpendingTitle">Spending</span>
+        </td>
+        <td >
+          <span class="actionListCat"  id="RegulationTitle">Regulation</span>
+        </td>
+        <td >
+          <span class="actionListCat"  id="UrbanPlanningTitle">Urban planning</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          <span id="cell"><span class="circle" id="taxationCircle">1</span>Mortgage interest deductability</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="spendingCircle">5</span>Social housing</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">8</span>Loan-to-value caps</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">14</span>Urban development </span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          <span id="cell"><span class="circle" id="taxationCircle">2</span>Transaction taxes</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="spendingCircle">6</span>Subsidies</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">9</span>Banking regulation</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">15</span>Build heights</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          <span id="cell"><span class="circle" id="taxationCircle">3</span>Carbon taxes</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="spendingCircle">7</span>Housing allowances</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">10</span>Rent control</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">16</span>Development rights</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          <span id="cell"><span class="circle" id="taxationCircle">4</span>Split land and building taxes</span>
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">11</span>Landlord-tenant regulation</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">17</span>Public land</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">12</span>Building codes</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">18</span>Land-use governance</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="regulationCircle">13</span>Benchmarking</span>
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">19</span>Vehicle access</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">20</span>Road pricing</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">21</span>Public transport</span>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          &nbsp;
+        </td>
+        <td >
+          <span id="cell"><span class="circle" id="urbanPlanningCircle">22</span>Alternative fuels</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
 <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
 <script src="js/d3.v6.min.js"></script>
@@ -81,7 +228,6 @@
 var divCircle = d3.select("body").append("div") 
 	.attr("class", "tooltip")       
 	.style("opacity", 0);
-
 
 
 // Dimensions of chart.
@@ -748,7 +894,7 @@ function mouseover(d){
         if(d.srcElement.__data__.definition!=null)
           htmlText = "<b>"+d.srcElement.__data__.name + "</b><br/>"+d.srcElement.__data__.definition;
         else
-          htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+          htmlText = d.srcElement.__data__.shortName + "<br/><b>"+d.srcElement.__data__.name + "</b>";
 
     if(event.pageX>width/2){
 
@@ -780,7 +926,7 @@ function mouseover(d){
         if(d.srcElement.__data__.definition!=null)
           htmlText = "<b>"+d.srcElement.__data__.name + "</b><br/>"+d.srcElement.__data__.definition;
         else
-          htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+          htmlText = d.srcElement.__data__.shortName + "<br/><b>"+d.srcElement.__data__.name + "</b>";
     if(event.pageX>width/2){
           divCircle.html(htmlText)
             //.style("left", $('#chart').offset().left+ width/2+ "px")
@@ -795,7 +941,7 @@ function mouseover(d){
               //    .style("top", $('#chart').offset().top  + "px");
             .style("left", event.pageX + "px")
                 .style("top", event.pageY + "px")
-            .attr("transform", "translate(-10%,1%)")
+            .attr("transform", "translate(-100%,1%)")
     }
   }
   
@@ -936,6 +1082,33 @@ d3.selectAll(".button")
     })
 
 
+
+d3.select("#highlightActions")
+    .on("mouseover", function() {
+        d3.select(this).style("opacity",0.5);highlightActions
+       // d3.select("#helpIndic").style("visibility","visible");
+
+       d3.select("#actionList").transition()
+            .duration(250)
+            .style("display", "inline")
+            .style("opacity", 1);
+
+
+            d3.select("#actionList")
+            //.style("left", $('#chart').offset().left+ width/2+ "px")
+              //    .style("top", $('#chart').offset().top  + "px")
+            .style("left", event.pageX - 75 + "px")
+                .style("top", event.pageY + 20+ "px");
+    })
+    .on("mouseout", function () {
+        d3.select(this).style("opacity", 1)
+        //d3.select("#helpIndic").style("visibility", "hidden")
+
+          d3.select("#actionList").transition()
+            .duration(250)
+            .style("display", "none")
+            .style("opacity", 0);
+    });
 
 d3.select("#helplink")
     .on("mouseover", function() {
