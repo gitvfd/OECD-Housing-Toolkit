@@ -23,50 +23,52 @@
   -->
     <!--<div id=intro><b>Explore the environmental implications of announced recovery measures in responses to the COVID-19 crisis! </div>-->
       <div id="intro">
-          <b>The OECD has assembled 16 policy actions to make housing more efficient, more inclusive and more sustainable.</b> This tool helps you find complementarities between well-being objectives and potential trade-offs between policies.
-        <br />
-        <ul>
-          <li><b>Policy Actions</b>: 1. Tax; 2. Spending; 3. Regulation; Urban policy.</li>
-          <li><b>Well-being objectives</b>: 1. Affordability; 2. Mobility; Resilience; 4. Sustainability.</li>
-        </ul>
+          <b>The OECD has assembled 22 policy actions to make housing more efficient, more inclusive and more sustainable.</b> This tool helps you find complementarities between well-being objectives and potential trade-offs between policies.
+        <br /><br/>
+        <b>Policy Actions</b>:
+       
+
+      
+            <div id="selectorButtons" class="flex-container">
+                <button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
+                <button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
+                <button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
+                <button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
+                <button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
+
+            </div>
+         <!-- <br/>
+          <li><b>Policy objectives</b>: 1. Efficiency; 2. Inclusiveness; 3. Sustainability; </li>-->
+
         The red arcs <span class="box negative"></span> highlight <span class="negativehighlight">potential negative trade-offs</span> of the chosen policy action on the well-being objectives.
         <br/>
         The green arcs <span class="box positive"></span> highlight <span class="positivehighlight">complementarities</span> between policy actions.
         
-        <br /><br/>
-        Mouse over and click on the actions and well-being objectives or focus on one policy action.
-        </div>
-      
-      
-      <div id="selectorButtons" class="flex-container">
-          <button class="button" id="Spending" type="submit" value="Spending" onclick="updateViz(value)"><span class="textbtn"><b>Spending</b></span></button>
-          <button class="button" id="Taxation" type="submit" value="Taxation" onclick="updateViz(value)"><span class="textbtn"><b>Taxation</b></span></button>
-          <button class="button" id="Regulation" type="submit" value="Regulation" onclick="updateViz(value)"><span class="textbtn"><b>Regulation</b></span></button>
-          <button class="button" id="UrbanPlanning" type="submit" value="Urban planning" onclick="updateViz(value)"><span class="textbtn"><b>Urban planning</b></span></button>
-          <button class="button" id="resetButton" type="submit"  value="all" onclick="initiateViz(value)"><span class="textbtn"><b>Reset</b></span></button>
-
+        <!--<br /><br/>
+        Mouse over and click on the actions and well-being objectives or focus on one policy action.-->
       </div>
+      
   </div>
   <div id="tool" class="flex-container-viz">
-    <div class="flex-container-viz-item" id="info">
-      <div id="introViz">
-        <!--The red arcs <span class="box negative"></span> highlight <span class="negativehighlight">potential negative trade-offs</span> of the chosen policy action on the well-being objectives.
-        The green arcs <span class="box positive"></span> highlight <span class="positivehighlight">complementarities</span> between policy actions.
-        --></div>
-      <br/>
-      
-      <div id="levertitle">
+
+    <div class="flex-container-viz-item" id="chart">
+
+    <div id="helpIcon"><img src="img/help.png" id="helplink" alt="link icons"></div>
+    <div id="helpIndic"><img src="img/Legend.png" id="legendPic" alt="link icons"></div>    
+      <div id="conceptInfo">
+            <a id="conceptLinkhtml"><img src="img/close.svg" id="conceptLinkimage" alt="link icons">
+            <div id="levertitle"></div>
+            <div id="lever"></div>
       </div>
-      <div id="lever">
-      </div>
-      <div class="hr-line"></div>
+    </div>
+   <!-- <div class="flex-container-viz-item" id="info">
+        
       <div id="titleWBobj">
       </div>
       <div id="WBobjxLever">
-
       </div>
-    </div>
-    <div class="flex-container-viz-item" id="chart"></div>
+      <div class="hr-line"></div>
+    </div> -->
   </div>
 	<!--<div id="source"><b>Source</b>: <a href="https://gitvfd.github.io/OECD-Green-Recovery-Policies/data/OECD_ENV_COVID-recovery-database_final-for-web.xlsm" target="_blank">OECD Green Recovery Database (2021)</a> - Total spending estimated from  <a href="https://recovery.smithschool.ox.ac.uk/tracking/" target="_blank">Global Recovery Observatory</a> data</div>
 
@@ -100,7 +102,7 @@ let selector="all";
 let clickSelector= "NONCLICKED";
 let selwb=null;
 
-let radiusWB=30
+let radiusWB=40
 let radiusInd=10
 
 let opacity=0.05;
@@ -137,8 +139,8 @@ let gViz = svg.append("g")
 
 
 let color = d3.scaleOrdinal()
-	.domain(["0","1"])
-	.range(["#c12b4f","#27B499"])
+	.domain(["0","1","2"])
+	.range(["#c12b4f","#27B499","#A7A7A7"])
 
 let color_lever = d3.scaleOrdinal()
 	.domain(["Taxation","Spending","Regulation","Urban planning"])
@@ -194,7 +196,7 @@ charge=-400;
 if(width>600){
 
    simulation = d3.forceSimulation(nodes)
-      .force("charge", d3.forceManyBody().strength(-400))
+      .force("charge", d3.forceManyBody().strength(-600))
       .force("collide",d3.forceCollide().radius(function(d){
         if(d.category=="Well-being objective")
           return radiusWB*1.25;
@@ -240,8 +242,10 @@ else{
       .attr("stroke-width", function(d){
           if(d.link==0)
             return 0.75;
-          else 
-            return 2;
+          else if(d.link==1)
+            return 1;
+          else
+            return 1.5;
           })
         .attr("stroke", d => color(d.link))
 
@@ -255,7 +259,17 @@ else{
       .attr("id",function(d){
           return "node"+d.id;
       })
-      .call(drag(simulation));
+      .call(drag(simulation))
+      .on("click",function(d){
+        //if(d.srcElement.__data__.category=="Well-being objective")
+          clickover(d);
+      })
+      .on("mouseover",function(d){
+        mouseover(d);
+      })
+      .on("mouseout",function(d){
+        mouseout(d);
+      });
 
   circle=node.append("circle")
       .attr("class",function(d){
@@ -345,6 +359,28 @@ else{
         if(d.category=="Well-being objective")
           return d.id;
       });
+      
+    node.append('text')
+      .attr('y',radiusInd/2)
+      .attr('font-size',12)
+      .attr('font-weight',900)
+      .attr('fill','#ffffff')
+      .attr('startOffset', '50%')
+      .attr('text-anchor','middle')
+      .text(function(d){
+        if(d.category=="indicator")
+          return d.number;
+      })
+      .on("click",function(d){
+        //if(d.srcElement.__data__.category=="Well-being objective")
+          clickover(d);
+      })
+      .on("mouseover",function(d){
+        mouseover(d);
+      })
+      .on("mouseout",function(d){
+        mouseout(d);
+      });
 
 
   simulation.on("tick", () => {
@@ -362,8 +398,10 @@ else{
 
   document.getElementById("levertitle").innerHTML="";
   document.getElementById("lever").innerHTML=text;
-  document.getElementById("titleWBobj").innerHTML="";
-  document.getElementById("WBobjxLever").innerHTML="";
+  //document.getElementById("titleWBobj").innerHTML="";
+  //document.getElementById("WBobjxLever").innerHTML="";
+
+  d3.select("#conceptInfo").style("visibility", "hidden");
 
 }
 
@@ -405,8 +443,10 @@ function updateViz(value){
       .attr("stroke-width", function(d){
           if(d.link==0)
             return 0.75;
-          else 
-            return 2;
+          else if(d.link==1)
+            return 1.5;
+          else
+            return 1;
           })
         .attr("stroke", d => color(d.link))
         //.attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
@@ -517,6 +557,18 @@ function updateViz(value){
           return d.id;
       });
 
+    node.append('text')
+      .attr('y',radiusInd/2)
+      .attr('font-size',12)
+      .attr('font-weight',900)
+      .attr('fill','#ffffff')
+      .attr('startOffset', '50%')
+      .attr('text-anchor','middle')
+      .text(function(d){
+        if(d.category=="indicator")
+          return d.number;
+      });
+
 
   simulation.on("tick", () => {
     link.attr("d", linkArc);
@@ -531,10 +583,12 @@ function updateViz(value){
       text=k.desc;
   })
 
+
+  d3.select("#conceptInfo").style("visibility", "visible");
   document.getElementById("levertitle").innerHTML=selector;
   document.getElementById("lever").innerHTML=text;
-  document.getElementById("titleWBobj").innerHTML="";
-  document.getElementById("WBobjxLever").innerHTML="";
+  //document.getElementById("titleWBobj").innerHTML="";
+  //document.getElementById("WBobjxLever").innerHTML="";
 }
 
 function linkArc(d) {
@@ -613,6 +667,7 @@ function isConnected(a, b) {
 
 
 function mouseover(d){
+  
   if(clickSelector=="NONCLICKED"){
       
       node.style("stroke-opacity", 1);
@@ -648,10 +703,23 @@ function mouseover(d){
         var htmlText ;
           htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
 
+    if(event.pageX>width/2){
 
       divCircle.html(htmlText)
-      .style("left", $('#chart').offset().left+ width/2+ "px")
-      .style("top", $('#chart').offset().top  + "px");
+        .style("left", $('#chart').offset().left+ width/2+ "px")
+              .style("top", $('#chart').offset().top  + "px")
+        .style("left", event.pageX + "px")
+            .style("top", event.pageY + "px")
+        .attr("transform", "translate(1%,1%)");
+    }else{
+
+      divCircle.html(htmlText)
+        //.style("left", $('#chart').offset().left+ width/2+ "px")
+          //    .style("top", $('#chart').offset().top  + "px");
+        .style("left", event.pageX + "px")
+            .style("top", event.pageY + "px")
+        .attr("transform", "translate(-10%,1%)")
+    }
 
   }else{
     var nodeSelect ="#node"+d.srcElement.__data__.id;
@@ -663,11 +731,22 @@ function mouseover(d){
             var htmlText ;
     
     htmlText = "<b>"+d.srcElement.__data__.name + "</b>";
+    if(event.pageX>width/2){
+          divCircle.html(htmlText)
+            //.style("left", $('#chart').offset().left+ width/2+ "px")
+              //    .style("top", $('#chart').offset().top  + "px")
+            .style("left", event.pageX + "px")
+                .style("top", event.pageY + "px")
+            .attr("transform", "translate(1%,1%)");
+      }else{
 
-
-    divCircle.html(htmlText)
-    .style("left", $('#chart').offset().left+ width/2+ "px")
-    .style("top", $('#chart').offset().top + "px");
+          divCircle.html(htmlText)
+            //.style("left", $('#chart').offset().left+ width/2+ "px")
+              //    .style("top", $('#chart').offset().top  + "px");
+            .style("left", event.pageX + "px")
+                .style("top", event.pageY + "px")
+            .attr("transform", "translate(-10%,1%)")
+    }
   }
   
   
@@ -754,17 +833,17 @@ function clickover(d){
     if(d.srcElement.__data__.category=="Well-being objective"){
         var text;
         descs.forEach(function(k){
-          if(selwb===k.wbObj && selector===k.selector)
+          if(selwb===null && selector===k.selector) // previously k.wbObj instead of null
             text=k.desc;
         })
 
         //document.getElementById("levertitle").innerHTML=selector;
         //document.getElementById("lever").innerHTML=text;
-        if(selector!="all")
+        /*if(selector!="all")
           document.getElementById("titleWBobj").innerHTML=d.srcElement.__data__.name + " X " + selector;
         else
           document.getElementById("titleWBobj").innerHTML=d.srcElement.__data__.name ;
-        document.getElementById("WBobjxLever").innerHTML=text;
+        document.getElementById("WBobjxLever").innerHTML=text;*/
     }
 }
 
@@ -780,6 +859,12 @@ d3.select("#vizbackground")
             updateViz(selector)
     }
   });
+
+
+  d3.select("#conceptLinkhtml").on("click", function () {
+
+    d3.select("#conceptInfo").style("visibility", "hidden");
+  })
 
 d3.selectAll(".button")
     .on("click", function () {
@@ -800,4 +885,15 @@ d3.selectAll(".button")
       }
     })
 
+
+
+d3.select("#helplink")
+    .on("mouseover", function() {
+        d3.select(this).style("opacity",0.8);
+        d3.select("#helpIndic").style("visibility","visible");
+    })
+    .on("mouseout", function () {
+        d3.select(this).style("opacity", 1)
+        d3.select("#helpIndic").style("visibility", "hidden")
+    });
 </script>

@@ -6,25 +6,6 @@ body {
   margin: auto;
 }
 
-#heading {
-  display: flex;
-}
-
-#quotes {
-  visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 10px;
-  height: 60px;
-}
-
-#titles {
-  display: flex;
-  flex-direction: column;
-
-}
 
 h1 {
   width: 100%;
@@ -177,108 +158,63 @@ h2 {
   visibility: visibile;
 }
 
-#selCountry {
-  margin-bottom: 2px;
-  margin-left: 25px;
-  margin-right: 25px;
-  border: solid;
-  border-width: 0px;
-  border-color: #575757;
-  background-color: #04629a;
-  /** CHange background color for dropdowns**/
-  border-radius: 10px;
-  color: #FFFFFF;
+
+#helpIcon {
+  position: absolute;
+  top: 2.5%;
+  left: 5%;
+ visibility: visible;
 }
 
-
-#country_dropdown {
-  margin: 5px 5px 5px 5px;
-  max-width: 180px;
-  display: inline;
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: 300;
-  font-size: 1rem;
-  color: #0b1e2d;
-  text-align: center;
-  letter-spacing: normal;
-  vertical-align: baseline;
-  cursor: pointer;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 0px 0;
-  background-color: #fff;
-  /**#c3d1da;**/
-  border: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+#helplink {
+  width:7.5%;
+  height:7.5%;
+/*  display: */
 }
 
-.dropdown_text {
-  display: inline-block;
-  margin-left: 5px;
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: 100;
-  font-size: 1.33rem;
-  color: #ffffff;
-  text-align: start;
-  padding: 5px 25px 3px 0px;
+#helpIndic{
+  position: absolute;
+  top: 3%;
+  left: 8%;
+  visibility: hidden;
 }
 
+#legendPic{
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+    width:25%;
+    height:auto;
+}
 
-
-/*div.tooltip {
-    position:absolute;
-    width: auto;
-    height: auto;
-    max-width: 400px;
-    margin-top: -1.25em;
-    padding: 0.5em 0.5em;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.2;
-    color: #04629a;
-    background: rgba(255,255,255,0.6);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-    transform: translate(-50%,100%);
-
-    z-index:22;
-}*/
 
 div.tooltip {
+
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  background:rgba(255,255,255,0.9);
+  box-shadow: 0 3px 5px rgba(97, 97, 97, 0.3); 
+  margin-bottom:30px;
+
   position: absolute;
   width: auto;
   height: auto;
-  max-width: 400px;
+  max-width: 40%;
   margin-top: -1.25em;
   padding: 0.5em 0.5em;
   font-family: 'Noto Sans', sans-serif;
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.2;
-  color: rgb(255, 255, 255);
-  background: rgba(4, 98, 154, 0.8);
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  /*-webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);*/
   pointer-events: none;
-  transform: translate(-50%, 0%);
+  /*transform: translate(-50%, 0%);*/
 
   z-index: 22;
 }
 
-
 .flex-container-viz {
   position: relative;
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-direction: column;
   justify-content: center;
   margin-top: 15px;
 }
@@ -296,25 +232,16 @@ div.tooltip {
    */
   /*.main { flex: 2 0px; }*/
   #info {
-    flex: 1;
-    order: 1;
+    flex: 2;
+    order: 2;
   }
 
   #chart {
-    flex: 2;
-    order: 2;
-    z-index: 21;
+    flex: 1;
+    order: 1;
+  z-index: 15;
   }
 }
-
-#chart {
-  flex-basis: auto;
-  width: 60%;
-  max-width: 800px;
-  background-color: #ffffff;
-  z-index: 21;
-}
-
 .circleWellbeingobjective {
   cursor: pointer;
 }
@@ -328,6 +255,23 @@ div.tooltip {
   cursor: not-allowed;
 }
 
+ #info {
+    flex: 2;
+    order: 2;
+  }
+
+#chart {
+    flex: 1;
+    order: 1;
+  flex-basis: auto;
+  width: 100%;
+  max-width: 1200px;
+  margin:auto;
+  background-color: #ffffff;
+  z-index: 15;
+}
+
+
 
 #intro {
   font-family: "Noto Sans Display", sans-serif;
@@ -339,13 +283,15 @@ div.tooltip {
   margin-bottom: 10px;
 }
 
-#introViz {
-  font-family: "Noto Sans Display", sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  color: #575757;
-  margin-top: 10px;
-  margin-bottom: 10px;
+#conceptInfo{
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  visibility: hidden;
+  background:rgba(255,255,255,0.9);
+  box-shadow: 0 3px 5px rgba(97, 97, 97, 0.3); 
+  max-width:500px;
+  margin-bottom:30px;
 }
 
 #levertitle {
@@ -354,8 +300,7 @@ div.tooltip {
   font-weight: 700;
   color: #575757;
 
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 #lever {
@@ -364,8 +309,19 @@ div.tooltip {
   font-weight: 300;
   color: #575757;
 
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
+}
+
+#conceptLinkimage {
+  float:right;
+  vertical-align:middle;
+  padding: 7px 7px;
+  width:5%;
+  height:5%;
+}
+
+#conceptLinkhtml {
+  cursor: pointer;
 }
 
 div.hr-line {
@@ -485,38 +441,3 @@ div.annotation {
   margin: 5px;
 }
 
-@media only screen and (max-width: 800px) {
-
-  #quotes {
-    height: 80px;
-  }
-
-  #OECDLogo {
-    height: 20px;
-    top: 20px;
-    left: 5px;
-  }
-
-
-  .tick text {
-    font-size: 0.9rem;
-
-  }
-}
-
-@media only screen and (max-width: 600px) {
-
-  #quotes {
-    height: 90px;
-  }
-
-  #OECDLogo {
-    height: 25px;
-    top: 10px;
-    left: 5px;
-  }
-
-  .tick text {
-    font-size: 0.6rem;
-  }
-}
